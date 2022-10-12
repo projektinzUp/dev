@@ -4,26 +4,28 @@ import ProjektInz.RESTAPI.restApi.OlxToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.cbor.MappingJackson2CborHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -89,20 +91,12 @@ public class OlxAccessTokenProvider {
     public String getOlxBearerToken() throws Exception
     {
         try {
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.setContentType(MediaType.TEXT_HTML);
-            UriComponentsBuilder builder = null;
-            builder = UriComponentsBuilder.fromUriString(olxHost + "api/open/oauth/token")
-                    .queryParam("grant_type", this.grantType)
-                    .queryParam("scope", "read%20write%20v2")
-                    .queryParam("client_id", this.clientId)
-                    .queryParam("client_secret", this.clientSecret);
-            URI requestUri = builder.build(false).toUri();
-           if(requestUri.toString().equals("%2520"))
-            log.info("OLX Bearer Token downloaded");
-            HttpEntity<Object> token = restTemplate.exchange(requestUri, HttpMethod.POST, new HttpEntity<>(httpHeaders), Object.class);
-            System.out.printf("asd");
-            return null;
+           HttpEntity<String> entity = createRequestEntity();
+           UriComponentsBuilder builder;
+           builder = UriComponentsBuilder.fromUriString(olxHost+"api/open/oauth/token");
+           URI requestUri = builder.build(true).toUri();
+           HttpEntity<OlxToken> token = restTemplate.exchange(requestUri,HttpMethod.POST,entity,OlxToken.class);
+           return Objects.requireNonNull(token.getBody()).getAccess_token();
           //  return Objects.requireNonNull(token.getBody().getAccess_token());
         }catch (Exception exception)
         {
@@ -110,6 +104,41 @@ public class OlxAccessTokenProvider {
             throw new Exception("Error occured when downloading bearerToken, message "+exception.getMessage());
         }
         }
+        private HttpEntity<String> createRequestEntity()
+        {
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+            List<MediaType> mediaTypes = new ArrayList<>();
+            mediaTypes.add(MediaType.TEXT_HTML);
+            httpHeaders.setAccept(mediaTypes);
+            String urlEncoded = convertMapToUrlEncoded(createBodyProperties());
+
+            return new HttpEntity<>(urlEncoded,httpHeaders);
+        }
+
+        private MultiValueMap<String,String > createBodyProperties()
+        {
+            MultiValueMap<String,String> map = new LinkedMultiValueMap<>();
+            map.add("grant_type", this.grantType);
+            map.add("scope", this.scope);
+            map.add("client_id", this.clientId);
+            map.add("client_secret", this.clientSecret);
+            return map;
+        }
+        private String convertMapToUrlEncoded(MultiValueMap<String,String> properties)
+        {
+            String encodedURL = properties.keySet().stream().map(key -> {
+                try{
+                    return key + "=" + URLEncoder.encode(String.valueOf(properties.get(key)),StandardCharsets.UTF_8.toString());
+                }catch (UnsupportedEncodingException e)
+                {
+                    throw new RuntimeException(e);
+                }
+            }).collect(Collectors.joining("&"));
+            encodedURL = encodedURL.replace("%5B","").replace("%5D","").replace("<","").replace("+","%20");
+            return encodedURL;
+        }
+
 
 
 }
