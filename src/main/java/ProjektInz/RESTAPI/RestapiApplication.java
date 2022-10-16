@@ -1,6 +1,7 @@
 package ProjektInz.RESTAPI;
 
 import ProjektInz.RESTAPI.Service.OlxAccessTokenProvider;
+import ProjektInz.RESTAPI.restApi.OlxToken;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -28,8 +29,8 @@ public class RestapiApplication {
 	public void funccjaTestowa()
 	{
 		try {
-			String abc = olxAccessTokenProvider.getOlxBearerToken();
-			System.out.printf("saasd");
+		OlxToken.accessToken = olxAccessTokenProvider.getOlxBearerToken();
+			System.out.printf(OlxToken.accessToken);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

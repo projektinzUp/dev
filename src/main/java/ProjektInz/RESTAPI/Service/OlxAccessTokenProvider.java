@@ -97,7 +97,6 @@ public class OlxAccessTokenProvider {
            URI requestUri = builder.build(true).toUri();
            HttpEntity<OlxToken> token = restTemplate.exchange(requestUri,HttpMethod.POST,entity,OlxToken.class);
            return Objects.requireNonNull(token.getBody()).getAccess_token();
-          //  return Objects.requireNonNull(token.getBody().getAccess_token());
         }catch (Exception exception)
         {
             log.error("Error occured when downloading bearerToken, message "+exception.getMessage());
