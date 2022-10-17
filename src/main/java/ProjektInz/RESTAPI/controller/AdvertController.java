@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
 @Controller
 public class AdvertController {
     @Autowired
@@ -17,7 +20,7 @@ public class AdvertController {
     {
         JsonObject body = new JsonObject();
         try {
-            advertService.getAdverts();
+            LinkedHashMap<String,ArrayList<LinkedHashMap<String,ArrayList<LinkedHashMap<String,Object>>>>> response = (LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>>>>) advertService.getAdverts();
             body.addProperty("Message","advert downloaded");
         } catch (Exception e) {
             throw new RuntimeException(e);
