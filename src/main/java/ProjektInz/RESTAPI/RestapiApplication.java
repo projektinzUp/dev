@@ -1,7 +1,9 @@
 package ProjektInz.RESTAPI;
 
+import ProjektInz.RESTAPI.Service.AdvertsProvider;
 import ProjektInz.RESTAPI.Service.OlxAccessTokenProvider;
 import ProjektInz.RESTAPI.Service.OlxAuthorizationCodeTokenProvider;
+import ProjektInz.RESTAPI.restApi.Advert;
 import ProjektInz.RESTAPI.restApi.OlxAuthorizationCodeToken;
 import ProjektInz.RESTAPI.restApi.OlxToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +14,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @SpringBootApplication
 public class RestapiApplication {
     @Autowired
     private OlxAccessTokenProvider olxAccessTokenProvider;
     @Autowired
     private OlxAuthorizationCodeTokenProvider olxAuthorizationCodeTokenProvider;
+    @Autowired
+    private AdvertsProvider advertsProvider;
 
     public static void main(String[] args) {
 
@@ -30,12 +36,14 @@ public class RestapiApplication {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void funkcjaTestowa() {
+    public void applicationStart() {
         try {
             OlxToken.accessToken = olxAccessTokenProvider.getOlxBearerToken();
             System.out.println(OlxToken.accessToken);
             OlxAuthorizationCodeToken.accessToken = olxAuthorizationCodeTokenProvider.getOlxAuthenticationToken();
             System.out.println(OlxAuthorizationCodeToken.accessToken);
+
+            List<Advert> advertList = advertsProvider.createAdvertObject();
             System.out.println(OlxAuthorizationCodeToken.refreshToken);
         } catch (Exception e) {
             throw new RuntimeException(e);

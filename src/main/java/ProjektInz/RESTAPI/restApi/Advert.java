@@ -4,18 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class Advert {
-    private int id;
+    private String id;
     private String status;
     private String url;
     private String created_at;
@@ -23,22 +18,40 @@ public class Advert {
     private String valid_to;
     private String title;
     private String description;
-    private int category_id;
+    private String category_id;
     private String advertiser_type;
-    private int external_id;
+    private String external_id;
     private String external_url;
     private Map<String, Object> contact;
     private Map<String, Object> location;
     private List<String> images;
     private Map<String, Object> price;
-    private double salary;
+    private String salary;
     private List<Map<String,Object>> attributes;
     private String courier;
 
 
-    public Advert(LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>> iter) {
-        this.id = (int) iter.get("id").get(0).get("id");
-        System.out.printf("asdasd");
+    public Advert(Map<String ,Object> advert)
+    {
+        this.id = advert.get("id").toString();
+        this.status = advert.get("status").toString();
+        this.url = advert.get("url").toString();
+        this.created_at = advert.get("created_at").toString();
+        this.activated_at = advert.get("activated_at").toString();
+        this.valid_to = advert.get("valid_to").toString();
+        this.title = advert.get("title").toString();
+        this.description = advert.get("description").toString();
+        this.category_id = advert.get("category_id").toString();
+        this.advertiser_type = advert.get("advertiser_type").toString();
+        this.external_id = advert.get("external_id").toString();
+        this.external_url = advert.get("external_url").toString();
+        this.contact = (Map<String, Object>) advert.get("contact");
+        this.location = (Map<String, Object>) advert.get("location");
+        this.images = (List<String>) advert.get("images");
+        this.price = (Map<String, Object>) advert.get("price");
+        this.salary = advert.get("salary").toString();
+        this.attributes = (List<Map<String, Object>>) advert.get("attributes");
+        this.courier = advert.get("courier").toString();
     }
 }
 
