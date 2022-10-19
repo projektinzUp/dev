@@ -55,7 +55,7 @@ public class AdvertService  {
             URI requestUri = builder.build(true).toUri();
             ResponseEntity<Object> advert = restTemplate.exchange(requestUri, HttpMethod.GET, entity, Object.class);
             AdvertResponse advertResponse = new AdvertResponse(advert);
-            return advertResponse.getBody();
+            return advertResponse.getValues(advertResponse);
         } catch (Exception exception) {
             log.error("Error occured when downloading adverts, message " + exception.getMessage());
             throw new Exception("Error occured when downloading adverts, message " + exception.getMessage());

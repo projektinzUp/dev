@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,4 +34,11 @@ public class Advert {
     private double salary;
     private List<Map<String,Object>> attributes;
     private String courier;
+
+
+    public Advert(LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>> iter) {
+        this.id = (int) iter.get("id").get(0).get("id");
+        System.out.printf("asdasd");
+    }
 }
+
