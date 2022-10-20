@@ -17,7 +17,9 @@ import java.util.Map;
 @Getter
 @Setter
 @Entity
-@Table(name="ADVERT_OLX")
+@Table(name="advert")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Advert implements Persistable<String> {
     @Id
     @Column(name="id")
