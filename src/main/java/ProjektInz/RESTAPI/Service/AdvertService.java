@@ -1,8 +1,11 @@
 package ProjektInz.RESTAPI.Service;
 
+import ProjektInz.RESTAPI.repository.AdvertsRepository;
+import ProjektInz.RESTAPI.restApi.Advert;
 import ProjektInz.RESTAPI.restApi.AdvertResponse;
 import ProjektInz.RESTAPI.restApi.OlxAuthorizationCodeToken;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
@@ -26,6 +29,9 @@ public class AdvertService  {
     private final RestTemplate restTemplate;
     @Value("${olx.host}")
     private String olxHost;
+
+    @Autowired
+    AdvertsRepository advertsRepository;
 
     public AdvertService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
@@ -60,5 +66,9 @@ public class AdvertService  {
             log.error("Error occured when downloading adverts, message " + exception.getMessage());
             throw new Exception("Error occured when downloading adverts, message " + exception.getMessage());
         }
+    }
+
+    public List<Advert> findAllAdverts(){
+        return (List<Advert>) advertsRepository.findAll();
     }
 }
