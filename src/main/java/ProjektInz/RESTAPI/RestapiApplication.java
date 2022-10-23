@@ -1,6 +1,7 @@
 package ProjektInz.RESTAPI;
 
 import ProjektInz.RESTAPI.Service.AdvertsProvider;
+import ProjektInz.RESTAPI.Service.AllegroTokenProvider;
 import ProjektInz.RESTAPI.Service.OlxAccessTokenProvider;
 import ProjektInz.RESTAPI.Service.OlxAuthorizationCodeTokenProvider;
 import ProjektInz.RESTAPI.repository.AdvertsRepository;
@@ -27,6 +28,8 @@ public class RestapiApplication {
     private AdvertsProvider advertsProvider;
     @Autowired
     private DatabaseInit databaseInit;
+    @Autowired
+    private AllegroTokenProvider allegroTokenProvider;
 
 
     public static void main(String[] args) {
@@ -48,6 +51,7 @@ public class RestapiApplication {
             OlxAuthorizationCodeToken.accessToken = olxAuthorizationCodeTokenProvider.getOlxAuthenticationToken();
             System.out.println(OlxAuthorizationCodeToken.accessToken);
             System.out.println(OlxAuthorizationCodeToken.refreshToken);
+            System.out.println(allegroTokenProvider.getAllegroToken());
             List<Advert> advertList = advertsProvider.createAdvertObject();
 
         } catch (Exception e) {
