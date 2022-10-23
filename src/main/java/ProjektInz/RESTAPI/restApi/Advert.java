@@ -33,7 +33,7 @@ public class Advert implements Persistable<String> {
     @Column(name="images")
     private String images;
     @Column(name="price")
-    private String price;
+    private int price;
 
 
     public Advert(Map<String ,Object> advert)
@@ -45,7 +45,7 @@ public class Advert implements Persistable<String> {
         List<LinkedHashMap<String, String>> imagesList = (List<LinkedHashMap<String, String>>) advert.get("images");
         this.images = imagesList.get(0).get("url");
         LinkedHashMap<String, Object> priceHashMap = (LinkedHashMap<String, Object>) advert.get("price");
-        this.price = priceHashMap.get("value").toString();
+        this.price = Integer.parseInt(String.valueOf(priceHashMap.get("value")));
     }
 
     @Override

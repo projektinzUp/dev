@@ -23,7 +23,7 @@ public class DatabaseInit {
 
     private String createAdvertTable(){
         return "CREATE TABLE IF NOT EXISTS advert(\"id\" Varchar, \"title\" Varchar, " +
-                "\"description\" Varchar, \"url\" Varchar, \"images\" Varchar, \"price\" Varchar, PRIMARY KEY(\"id\"))";
+                "\"description\" Varchar, \"url\" Varchar, \"images\" Varchar, \"price\" Int, PRIMARY KEY(\"id\"))";
     }
 
 }

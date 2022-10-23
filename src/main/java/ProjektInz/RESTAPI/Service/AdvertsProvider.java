@@ -54,7 +54,7 @@ public class AdvertsProvider {
             } else if (key == "price") {
                 if(map.get("price") == null){
                     LinkedHashMap<String, Object> priceLinked2 = new LinkedHashMap<>();
-                    priceLinked2.put("value", "null");
+                    priceLinked2.put("value", 0);
                     map.put(key, priceLinked2);
                 }
             }
