@@ -1434,3 +1434,7 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/Janiu/D
 	at org.h2.mvstore.FileStore.open(FileStore.java:128)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:452)
 	... 59 more
+2022-10-23 03:25:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "adverts" nie istnieje
+Table "adverts" not found; SQL statement:
+select * from adverts s where s.title like ? [42102-214]

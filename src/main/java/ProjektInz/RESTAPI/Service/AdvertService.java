@@ -71,4 +71,8 @@ public class AdvertService  {
     public List<Advert> findAllAdverts(){
         return (List<Advert>) advertsRepository.findAll();
     }
+
+    public List<Advert> getByKeyword(String keyword){
+        return advertsRepository.findByKeyword(keyword);
+    }
 }
