@@ -15,4 +15,5 @@ public interface AdvertsRepository extends JpaRepository<Advert, String> {
     @Query(value = "select * from advert adv where adv.title like %:keyword%", nativeQuery = true)
     List<Advert> findByKeyword(@Param("keyword") String keyword);
 
+//    String olxGetCode(String keyword);
 }

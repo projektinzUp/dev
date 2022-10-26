@@ -5,9 +5,7 @@ import ProjektInz.RESTAPI.restApi.Advert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,14 +20,8 @@ public class advertController {
         return "index";
     }
 
-    @GetMapping("/allAdverts")
-    public String showAdverts(Model model){
-        model.addAttribute("allAdverts", advertService.findAllAdverts());
-        return "all-adverts";
-    }
-
-    @RequestMapping(path = {"/","/search"})
-    public String home(Advert advert, Model model, String keyword) {
+    @RequestMapping(path = {"/olxAdvertsList"})
+    public String olxAdvertsList(Advert advert, Model model, String keyword) {
         if(keyword!=null) {
             List<Advert> list = advertService.getByKeyword(keyword);
             model.addAttribute("list", list);
@@ -37,6 +29,6 @@ public class advertController {
             List<Advert> list = advertService.findAllAdverts();
             model.addAttribute("list", list);
         }
-        return "search";
+        return "olx-adverts-list";
     }
 }

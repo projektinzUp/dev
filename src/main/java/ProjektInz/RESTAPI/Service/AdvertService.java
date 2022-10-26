@@ -75,4 +75,8 @@ public class AdvertService  {
     public List<Advert> getByKeyword(String keyword){
         return advertsRepository.findByKeyword(keyword);
     }
+
+//    public String olxGetCode(String keyword){
+//        return advertsRepository.olxGetCode(keyword);
+//    }
 }
