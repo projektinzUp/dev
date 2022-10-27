@@ -17,27 +17,26 @@ import java.util.Map;
 @Getter
 @Setter
 @Entity
-@Table(name="advert")
+@Table(name = "advert")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Advert implements Persistable<String> {
+public class OlxAdvert implements Persistable<String> {
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     private String id;
-    @Column(name="url")
+    @Column(name = "url")
     private String url;
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
-    @Column(name="images")
+    @Column(name = "images")
     private String images;
     @Column(name="price")
     private int price;
 
 
-    public Advert(Map<String ,Object> advert)
-    {
+    public OlxAdvert(Map<String, Object> advert) {
         this.id = advert.get("id").toString();
         this.url = advert.get("url").toString();
         this.title = advert.get("title").toString();

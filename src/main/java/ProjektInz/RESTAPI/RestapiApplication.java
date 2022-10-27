@@ -1,7 +1,7 @@
 package ProjektInz.RESTAPI;
 
 import ProjektInz.RESTAPI.Service.*;
-import ProjektInz.RESTAPI.restApi.Advert;
+import ProjektInz.RESTAPI.restApi.OlxAdvert;
 import ProjektInz.RESTAPI.restApi.OlxAuthorizationCodeToken;
 import ProjektInz.RESTAPI.restApi.OlxToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class RestapiApplication {
     @Autowired
     private OlxAuthorizationCodeTokenProvider olxAuthorizationCodeTokenProvider;
     @Autowired
-    private AdvertsProvider advertsProvider;
+    private OlxAdvertsProvider olxAdvertsProvider;
     @Autowired
     private DatabaseInit databaseInit;
     @Autowired
@@ -49,7 +49,7 @@ public class RestapiApplication {
             System.out.println(OlxAuthorizationCodeToken.accessToken);
             System.out.println(OlxAuthorizationCodeToken.refreshToken);
             System.out.println(allegroTokenProvider.getAllegroToken());
-            List<Advert> advertList = advertsProvider.createAdvertObject();
+            List<OlxAdvert> olxAdvertList = olxAdvertsProvider.createAdvertObject();
             System.out.printf(allegroAuthorizationCodeTokenProvider.getAllegroAuthorizationCodeToken());
 
         } catch (Exception e) {

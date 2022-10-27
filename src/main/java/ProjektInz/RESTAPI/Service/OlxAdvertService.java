@@ -1,8 +1,8 @@
 package ProjektInz.RESTAPI.Service;
 
-import ProjektInz.RESTAPI.repository.AdvertsRepository;
-import ProjektInz.RESTAPI.restApi.Advert;
-import ProjektInz.RESTAPI.restApi.AdvertResponse;
+import ProjektInz.RESTAPI.repository.OlxAdvertsRepository;
+import ProjektInz.RESTAPI.restApi.OlxAdvert;
+import ProjektInz.RESTAPI.restApi.OlxAdvertResponse;
 import ProjektInz.RESTAPI.restApi.OlxAuthorizationCodeToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +21,18 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Slf4j
-public class AdvertService  {
+public class OlxAdvertService {
     private final RestTemplate restTemplate;
     @Value("${olx.host}")
     private String olxHost;
 
     @Autowired
-    AdvertsRepository advertsRepository;
+    OlxAdvertsRepository olxAdvertsRepository;
 
-    public AdvertService(RestTemplateBuilder restTemplateBuilder) {
+    public OlxAdvertService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
         List<HttpMessageConverter<?>> messageConverterList = new ArrayList<>();
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
@@ -60,19 +59,19 @@ public class AdvertService  {
             builder = UriComponentsBuilder.fromUriString(olxHost + "api/partner/adverts");
             URI requestUri = builder.build(true).toUri();
             ResponseEntity<Object> advert = restTemplate.exchange(requestUri, HttpMethod.GET, entity, Object.class);
-            AdvertResponse advertResponse = new AdvertResponse(advert);
-            return advertResponse.getValues(advertResponse);
+            OlxAdvertResponse olxAdvertResponse = new OlxAdvertResponse(advert);
+            return olxAdvertResponse.getValues(olxAdvertResponse);
         } catch (Exception exception) {
             log.error("Error occured when downloading adverts, message " + exception.getMessage());
             throw new Exception("Error occured when downloading adverts, message " + exception.getMessage());
         }
     }
 
-    public List<Advert> findAllAdverts(){
-        return (List<Advert>) advertsRepository.findAll();
+    public List<OlxAdvert> findAllAdverts() {
+        return (List<OlxAdvert>) olxAdvertsRepository.findAll();
     }
 
-    public List<Advert> getByKeyword(String keyword){
-        return advertsRepository.findByKeyword(keyword);
+    public List<OlxAdvert> getByKeyword(String keyword) {
+        return olxAdvertsRepository.findByKeyword(keyword);
     }
 }

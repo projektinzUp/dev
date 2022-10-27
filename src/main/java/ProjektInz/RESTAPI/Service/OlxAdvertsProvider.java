@@ -1,7 +1,7 @@
 package ProjektInz.RESTAPI.Service;
 
-import ProjektInz.RESTAPI.repository.AdvertsRepository;
-import ProjektInz.RESTAPI.restApi.Advert;
+import ProjektInz.RESTAPI.repository.OlxAdvertsRepository;
+import ProjektInz.RESTAPI.restApi.OlxAdvert;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,16 +10,16 @@ import java.util.*;
 
 @Service
 @Slf4j
-public class AdvertsProvider {
+public class OlxAdvertsProvider {
     @Autowired
-    private AdvertService advertService;
+    private OlxAdvertService olxAdvertService;
     @Autowired
-    private AdvertsRepository advertsRepository;
-    private List<Advert> adverts = new ArrayList<>();
+    private OlxAdvertsRepository olxAdvertsRepository;
+    private List<OlxAdvert> olxAdverts = new ArrayList<>();
 
-    public List<Advert> createAdvertObject() {
+    public List<OlxAdvert> createAdvertObject() {
         try {
-            ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>>> response = (ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>>>) advertService.getAdverts();
+            ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>>> response = (ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>>>) olxAdvertService.getAdverts();
             for (LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>> iter : response) {
                 Map<String, Object> testMap = new HashMap<>();
                 for (String key : iter.keySet()) {
@@ -28,12 +28,12 @@ public class AdvertsProvider {
                 }
 
                 nullToStringConverter(testMap);
-                Advert advert = new Advert(testMap);
+                OlxAdvert olxAdvert = new OlxAdvert(testMap);
 
-                adverts.add(advert);
-                advertsRepository.save(advert);
+                olxAdverts.add(olxAdvert);
+                olxAdvertsRepository.save(olxAdvert);
             }
-            return adverts;
+            return olxAdverts;
 
         } catch (Exception e) {
             log.error(e.getMessage());

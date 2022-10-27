@@ -27,13 +27,13 @@
     </thead>
 
     <tbody>
-    <tr th:each="advert : ${allAdverts}">
-      <td th:text="${advert.id}"></td>
-      <td th:text="${advert.title}"></td>
-      <td th:text="${advert.description}"></td>
-      <td th:text="${advert.url}"></td>
-      <td><img th:src="${advert.images}" width="100" height="60"/></td>
-      <td th:text="${advert.price}"></td>
+    <tr th:each="olxAdvert : ${allAdverts}">
+        <td th:text="${olxAdvert.id}"></td>
+        <td th:text="${olxAdvert.title}"></td>
+        <td th:text="${olxAdvert.description}"></td>
+        <td th:text="${olxAdvert.url}"></td>
+        <td><img th:src="${olxAdvert.images}" width="100" height="60"/></td>
+        <td th:text="${olxAdvert.price}"></td>
     </tr>
     </tbody>
   </table>
