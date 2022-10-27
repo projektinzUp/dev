@@ -76,7 +76,4 @@ public class AdvertService  {
         return advertsRepository.findByKeyword(keyword);
     }
 
-//    public String olxGetCode(String keyword){
-//        return advertsRepository.olxGetCode(keyword);
-//    }
 }

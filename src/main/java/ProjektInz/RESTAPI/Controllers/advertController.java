@@ -31,4 +31,12 @@ public class advertController {
         }
         return "olx-adverts-list";
     }
+
+    @GetMapping("/olxGetCode")
+    public String send(@RequestParam(name="olxCode", required = false) String olxCode) {
+        //dosomething with olxCode
+        System.out.println("olxCode: " + olxCode);
+        return "olx-get-code";
+    }
+
 }

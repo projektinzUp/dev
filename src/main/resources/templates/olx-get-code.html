@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="ISO-8859-1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
@@ -9,12 +9,14 @@
   <title>Pobierz kod!</title>
 </head>
 <body>
+<div th:insert="fragments :: navbar"></div>
 <div class="container mt-5">
-  <h2 align="center">Pobierz kod</h2>
-<!--  <form th:action="@{/olxGetCode}" method="get">-->
-<!--    <input type="text" name="olxCode" th:value="${olxCode}"  placeholder="Tu wpisz kod" size="50" >-->
-<!--    <button type="submit" class="btn btn-info" >zaloguj!</button>-->
-<!--  </form>-->
+  <h2 align="center">Zaloguj si? za pomoc? <a href="http://projektinzup/?code=ca0fe6464eb3deff842d0c70f7a5bd6a894bb5e4&state=XXX" target="_blank">kodu!</a></h2>
+
+  <form th:action="@{/olxGetCode}" method="get">
+    <input type="text" th:name="olxCode" name="olxCode" placeholder="Podaj kod" size="100" >
+    <button type="submit" class="btn btn-success" >Zaloguj</button>
+  </form>
 
 </div>
 </body>
