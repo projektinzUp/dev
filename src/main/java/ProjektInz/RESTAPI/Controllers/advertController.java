@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,13 +22,7 @@ public class advertController {
         return "index";
     }
 
-    @GetMapping("/allAdverts")
-    public String showAdverts(Model model){
-        model.addAttribute("allAdverts", olxAdvertService.findAllAdverts());
-        return "all-adverts";
-    }
-
-    @RequestMapping(path = {"/", "/search"})
+    @RequestMapping(path = {"/olxAdvertsList"})
     public String home(OlxAdvert olxAdvert, Model model, String keyword) {
         if (keyword != null) {
             List<OlxAdvert> list = olxAdvertService.getByKeyword(keyword);
@@ -36,6 +31,13 @@ public class advertController {
             List<OlxAdvert> list = olxAdvertService.findAllAdverts();
             model.addAttribute("list", list);
         }
-        return "search";
+        return "olx-adverts-list";
+    }
+
+    @GetMapping("/olxGetCode")
+    public String send(@RequestParam(name="olxCode", required = false) String olxCode) {
+        //dosomething with olxCode
+        System.out.println("olxCode: " + olxCode);
+        return "olx-get-code";
     }
 }
