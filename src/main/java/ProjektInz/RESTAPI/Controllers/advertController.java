@@ -18,8 +18,23 @@ public class advertController {
     OlxAdvertService olxAdvertService;
 
     @GetMapping("/")
-    public String index(){
-        return "index";
+    public String index(@RequestParam(name="olxCode", required = false) String olxCode) {
+        //dosomething with olxCode
+        System.out.println("olxCode: " + olxCode);
+        if (olxCode == "" || olxCode == null) {
+            return "index";
+        } else {
+            return "home";
+        }
+    }
+//    @GetMapping("/")
+//    public String index(){
+//        return "index";
+//    }
+
+    @GetMapping("/home")
+    public String home(){
+        return "home";
     }
 
     @RequestMapping(path = {"/olxAdvertsList"})
@@ -40,4 +55,5 @@ public class advertController {
         System.out.println("olxCode: " + olxCode);
         return "olx-get-code";
     }
+
 }

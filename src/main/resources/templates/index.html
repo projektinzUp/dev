@@ -7,11 +7,16 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-<div th:insert="fragments :: navbar"></div>
+<!--<div th:insert="fragments :: navbar"></div>-->
 <!--  <div class="container my-1">-->
 
 <!--    <h1 align="center">Advert list</h1>-->
-
+<h2 align="center">OLX <a href="https://www.olx.pl/oauth/authorize/?client_id=201863&response_type=code&state=XXX&scope=read+write+v2&redirect_uri=http://projektinzup" target="_blank">kod!</a></h2>
+<!--<h2 align="center">Allegro <a href="https://allegro.pl/auth/oauth/authorize?response_type=code&client_id=3f7271cab26145d09f58b4ea1dda2d36&redirect_uri=https://Projektupinz.pl" target="_blank">kod!</a></h2>-->
+<form th:action="@{/}" align="center" method="get">
+  <input type="text" th:name="olxCode" name="olxCode" placeholder="Podaj kod" size="100" >
+  <button type="submit" class="btn btn-success" >Prześlij</button>
+</form>
 <!--    <a th:href = "@{/allAdverts}" class="btn btn-primary btn-sm mb-5"> Show your adverts! </a>-->
 <!--    <a th:href = "@{/search}" class="btn btn-primary btn-sm mb-5"> Search! </a>-->
 <!--&lt;!&ndash;    <a th:href = "@{/uploadData}" class="btn btn-primary btn-sm mb-5"> Upload Data! </a>&ndash;&gt;-->

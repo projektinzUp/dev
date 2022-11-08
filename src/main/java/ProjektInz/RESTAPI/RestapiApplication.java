@@ -45,12 +45,12 @@ public class RestapiApplication {
             databaseInit.initializeDatabase();
             OlxToken.accessToken = olxAccessTokenProvider.getOlxBearerToken();
             System.out.println(OlxToken.accessToken);
-            OlxAuthorizationCodeToken.accessToken = olxAuthorizationCodeTokenProvider.getOlxAuthenticationToken();
+//            OlxAuthorizationCodeToken.accessToken = olxAuthorizationCodeTokenProvider.getOlxAuthenticationToken(); //Aby odpalić bez kodu OLX w env
             System.out.println(OlxAuthorizationCodeToken.accessToken);
             System.out.println(OlxAuthorizationCodeToken.refreshToken);
             System.out.println(allegroTokenProvider.getAllegroToken());
-            List<OlxAdvert> olxAdvertList = olxAdvertsProvider.createAdvertObject();
-            System.out.printf(allegroAuthorizationCodeTokenProvider.getAllegroAuthorizationCodeToken());
+//            List<OlxAdvert> olxAdvertList = olxAdvertsProvider.createAdvertObject(); //Nie tworzymy, nie mamy jeszcze kodu OLX
+//            System.out.printf(allegroAuthorizationCodeTokenProvider.getAllegroAuthorizationCodeToken()); //Aby odpalić bez kodu Allegro w env
 
         } catch (Exception e) {
             throw new RuntimeException(e);

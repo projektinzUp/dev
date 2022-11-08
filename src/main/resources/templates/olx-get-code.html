@@ -11,7 +11,7 @@
 <body>
 <div th:insert="fragments :: navbar"></div>
 <div class="container mt-5">
-    <h2 align="center">Zaloguj si? za pomoc? <a href="http://projektinzup/?code=ca0fe6464eb3deff842d0c70f7a5bd6a894bb5e4&state=XXX" target="_blank">kodu!</a></h2>
+    <h2 align="center">Zaloguj si? za pomoc? <a href="https://www.olx.pl/oauth/authorize/?client_id=201863&response_type=code&state=XXX&scope=read+write+v2&redirect_uri=http://projektinzup" target="_blank">kodu!</a></h2>
 
     <form th:action="@{/olxGetCode}" method="get">
         <input type="text" th:name="olxCode" name="olxCode" placeholder="Podaj kod" size="100" >
