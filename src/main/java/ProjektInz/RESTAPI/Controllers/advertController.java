@@ -27,6 +27,7 @@ public class advertController {
         return "all-adverts";
     }
 
+
     @RequestMapping(path = {"/", "/search"})
     public String home(OlxAdvert olxAdvert, Model model, String keyword) {
         if (keyword != null) {

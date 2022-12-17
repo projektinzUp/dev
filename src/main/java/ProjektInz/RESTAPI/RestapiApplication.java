@@ -43,13 +43,14 @@ public class RestapiApplication {
     public void applicationStart() {
         try {
             databaseInit.initializeDatabase();
-            OlxToken.accessToken = olxAccessTokenProvider.getOlxBearerToken();
-            System.out.println(OlxToken.accessToken);
-            OlxAuthorizationCodeToken.accessToken = olxAuthorizationCodeTokenProvider.getOlxAuthenticationToken();
-            System.out.println(OlxAuthorizationCodeToken.accessToken);
-            System.out.println(OlxAuthorizationCodeToken.refreshToken);
+//            OlxToken.accessToken = olxAccessTokenProvider.getOlxBearerToken();
+//            System.out.println(OlxToken.accessToken);
+//            OlxAuthorizationCodeToken.accessToken = olxAuthorizationCodeTokenProvider.getOlxAuthenticationToken();
+//            System.out.println(OlxAuthorizationCodeToken.accessToken);
+//            System.out.println(OlxAuthorizationCodeToken.refreshToken);
             System.out.println(allegroTokenProvider.getAllegroToken());
-            List<OlxAdvert> olxAdvertList = olxAdvertsProvider.createAdvertObject();
+            allegroAuthorizationCodeTokenProvider.getCode();
+//            List<OlxAdvert> olxAdvertList = olxAdvertsProvider.createAdvertObject();
             System.out.printf(allegroAuthorizationCodeTokenProvider.getAllegroAuthorizationCodeToken());
 
         } catch (Exception e) {
