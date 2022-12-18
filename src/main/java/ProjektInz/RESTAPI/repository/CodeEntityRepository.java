@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CodeEntityRepository extends JpaRepository<CodeEntity, String>  {
 
-
-    @Query(value = "select code from code order by id desc limit 1", nativeQuery = true)
+    @Query(value = "select code from code order by timestamp desc limit 1", nativeQuery = true)
     String getCode();
 }

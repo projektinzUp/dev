@@ -51,7 +51,7 @@ public class RestapiApplication {
             System.out.println(allegroTokenProvider.getAllegroToken());
             allegroAuthorizationCodeTokenProvider.getCode();
 //            List<OlxAdvert> olxAdvertList = olxAdvertsProvider.createAdvertObject();
-            //System.out.printf(allegroAuthorizationCodeTokenProvider.getAllegroAuthorizationCodeToken());
+            System.out.printf(allegroAuthorizationCodeTokenProvider.getAllegroAuthorizationCodeToken());
 
         } catch (Exception e) {
             throw new RuntimeException(e);

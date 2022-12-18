@@ -1,7 +1,9 @@
 package ProjektInz.RESTAPI.Service;
 
+import ProjektInz.RESTAPI.Handlers.AllegroHandler;
 import ProjektInz.RESTAPI.repository.CodeEntityRepository;
 import ProjektInz.RESTAPI.restApi.AllegroAuthorizationCodeToken;
+import com.sun.net.httpserver.HttpServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,17 +17,16 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 
-import java.io.IOException;
+import java.awt.*;
+import java.net.InetSocketAddress;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.*;
 
 @Slf4j
 @Service
-public class AllegroAuthorizationCodeTokenProvider extends AbstractAllegroRequests {
+public class AllegroAuthorizationCodeTokenProvider extends AbstractAllegroRequests implements GetCode{
     @Value("${allegro.client_id}")
     private String client_id;
     @Value("${allegro.client_secret}")
@@ -48,11 +49,19 @@ public class AllegroAuthorizationCodeTokenProvider extends AbstractAllegroReques
         AbstractCreateRequest.setAutomaticRedirect(restTemplate);
     }
 
+    @Override
     public void getCode() throws Exception {
         UriComponentsBuilder builder;
         builder = UriComponentsBuilder.fromUriString("https://www.allegro.pl/auth/oauth/authorize").queryParam("response_type", "code").queryParam("client_id", this.client_id).queryParam("redirect_uri", this.redirect_uri);
-        GetCode gc = new GetCode(builder, 8000, "codeAllegro.txt");
-        gc.getCode();
+        URI requestUri = builder.build(true).toUri();
+        System.setProperty("java.awt.headless", "false");
+        Desktop desktop = Desktop.getDesktop();
+        desktop.browse(requestUri);
+
+        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+        server.createContext("/test", new AllegroHandler(codeEntityRepository));
+        server.setExecutor(null);
+        server.start();
     }
 
     public String getAllegroAuthorizationCodeToken() throws Exception {
