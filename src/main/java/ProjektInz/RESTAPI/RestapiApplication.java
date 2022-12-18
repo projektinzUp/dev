@@ -28,6 +28,8 @@ public class RestapiApplication {
     private AllegroTokenProvider allegroTokenProvider;
     @Autowired
     private AllegroAuthorizationCodeTokenProvider allegroAuthorizationCodeTokenProvider;
+    @Autowired
+    private DatabaseSupport databaseSupport;
 
     public static void main(String[] args) {
 
@@ -43,6 +45,7 @@ public class RestapiApplication {
     public void applicationStart() {
         try {
             databaseInit.initializeDatabase();
+            databaseSupport.codesToRemove();
 //            OlxToken.accessToken = olxAccessTokenProvider.getOlxBearerToken();
 //            System.out.println(OlxToken.accessToken);
 //            OlxAuthorizationCodeToken.accessToken = olxAuthorizationCodeTokenProvider.getOlxAuthenticationToken();

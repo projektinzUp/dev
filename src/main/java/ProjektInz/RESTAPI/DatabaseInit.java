@@ -19,18 +19,18 @@ public class DatabaseInit {
     @Transactional
     @Modifying
     public void initializeDatabase() {
-        String query = createCodeTable();
+        String query = createCodeTable() + createAdvertTable();
         entityManager.createNativeQuery(query).executeUpdate();
     }
 
     private String createAdvertTable(){
         return "CREATE TABLE IF NOT EXISTS advert(\"id\" Varchar, \"title\" Varchar, " +
-                "\"description\" Varchar, \"url\" Varchar, \"images\" Varchar, \"price\" Int, PRIMARY KEY(\"id\"))";
+                "\"description\" Varchar, \"url\" Varchar, \"images\" Varchar, \"price\" Int, PRIMARY KEY(\"id\"));\n";
     }
 
     private String createCodeTable(){
         return "CREATE TABLE IF NOT EXISTS code(\"timestamp\" TimeStamp default current_timestamp, \"code\" Varchar, " +
-                "PRIMARY KEY(\"code\"))";
+                "PRIMARY KEY(\"code\"));";
     }
 
 
