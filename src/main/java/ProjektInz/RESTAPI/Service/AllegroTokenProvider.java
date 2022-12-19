@@ -50,7 +50,7 @@ public class AllegroTokenProvider {
         try {
             HttpEntity<String> entity = createHeaders();
             UriComponentsBuilder builder;
-            builder = UriComponentsBuilder.fromUriString("https://www.allegro.pl/auth/oauth/token").queryParam("grant_type", this.grantType);
+            builder = UriComponentsBuilder.fromUriString("https://allegro.pl.allegrosandbox.pl/auth/oauth/token").queryParam("grant_type", this.grantType);
             URI requestUri = builder.build(true).toUri();
             ResponseEntity<AllegroToken> advert = restTemplate.exchange(requestUri, HttpMethod.POST, entity, AllegroToken.class);
             return advert.getBody().getAccess_token();

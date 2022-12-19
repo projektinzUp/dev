@@ -52,7 +52,7 @@ public class AllegroAuthorizationCodeTokenProvider extends AbstractAllegroReques
     @Override
     public void getCode() throws Exception {
         UriComponentsBuilder builder;
-        builder = UriComponentsBuilder.fromUriString("https://www.allegro.pl/auth/oauth/authorize").queryParam("response_type", "code").queryParam("client_id", this.client_id).queryParam("redirect_uri", this.redirect_uri);
+        builder = UriComponentsBuilder.fromUriString("https://allegro.pl.allegrosandbox.pl/auth/oauth/authorize").queryParam("response_type", "code").queryParam("client_id", this.client_id).queryParam("redirect_uri", this.redirect_uri);
         URI requestUri = builder.build(true).toUri();
         System.setProperty("java.awt.headless", "false");
         Desktop desktop = Desktop.getDesktop();
@@ -69,7 +69,7 @@ public class AllegroAuthorizationCodeTokenProvider extends AbstractAllegroReques
             HttpEntity<String> entity = createHeaders();
             UriComponentsBuilder builder;
             String code = codeEntityRepository.getCode();
-            builder = UriComponentsBuilder.fromUriString("https://www.allegro.pl/auth/oauth/token").queryParam("grant_type", "authorization_code").queryParam("code", code).queryParam("redirect_uri", this.redirect_uri);
+            builder = UriComponentsBuilder.fromUriString("https://allegro.pl.allegrosandbox.pl/auth/oauth/token").queryParam("grant_type", "authorization_code").queryParam("code", code).queryParam("redirect_uri", this.redirect_uri);
             URI requestUri = builder.build(true).toUri();
             ResponseEntity<AllegroAuthorizationCodeToken> advert = restTemplate.exchange(requestUri, HttpMethod.POST, entity, AllegroAuthorizationCodeToken.class);
             return Objects.requireNonNull(advert.getBody()).getAccess_token();

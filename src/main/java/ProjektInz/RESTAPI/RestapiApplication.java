@@ -1,9 +1,6 @@
 package ProjektInz.RESTAPI;
 
 import ProjektInz.RESTAPI.Service.*;
-import ProjektInz.RESTAPI.restApi.OlxAdvert;
-import ProjektInz.RESTAPI.restApi.OlxAuthorizationCodeToken;
-import ProjektInz.RESTAPI.restApi.OlxToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
 
 @SpringBootApplication
 public class RestapiApplication {
@@ -54,6 +50,7 @@ public class RestapiApplication {
             System.out.println(allegroTokenProvider.getAllegroToken());
             allegroAuthorizationCodeTokenProvider.getCode();
 //            List<OlxAdvert> olxAdvertList = olxAdvertsProvider.createAdvertObject();
+            Thread.sleep(2000);
             System.out.printf(allegroAuthorizationCodeTokenProvider.getAllegroAuthorizationCodeToken());
 
         } catch (Exception e) {

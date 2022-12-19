@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
 
 @Component
 public class AllegroHandler implements HttpHandler  {
@@ -27,5 +26,6 @@ public class AllegroHandler implements HttpHandler  {
         param1 = param1.replace("[", "").replace("]", "").replace(" ", "");
         CodeEntity codeEntity = new CodeEntity(param1);
         codeEntityRepository.saveAndFlush(codeEntity);
+        t.close();
     }
 }
