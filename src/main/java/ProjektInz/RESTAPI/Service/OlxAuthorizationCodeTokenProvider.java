@@ -1,7 +1,12 @@
 package ProjektInz.RESTAPI.Service;
 
+import ProjektInz.RESTAPI.Handlers.AllegroHandler;
+import ProjektInz.RESTAPI.Handlers.OlxHandler;
+import ProjektInz.RESTAPI.repository.OlxCodeEntityRepository;
 import ProjektInz.RESTAPI.restApi.OlxAuthorizationCodeToken;
+import com.sun.net.httpserver.HttpServer;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
@@ -16,6 +21,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.awt.*;
+import java.net.InetSocketAddress;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -25,7 +32,7 @@ import java.util.Objects;
 
 @Slf4j
 @Service
-public class OlxAuthorizationCodeTokenProvider extends AbstractCreateRequest {
+public class OlxAuthorizationCodeTokenProvider extends AbstractCreateRequest implements GetCode {
     private final RestTemplate restTemplate;
     @Value("${olx.host}")
     private String olxHost;
@@ -37,10 +44,11 @@ public class OlxAuthorizationCodeTokenProvider extends AbstractCreateRequest {
     private String scope;
     @Value("${olx.clientSecret}")
     private String clientSecret;
-    @Value("${olx.code}")
-    private String code;
     @Value("${olx.redirect_uri}")
     private String redirect_uri;
+
+    @Autowired
+    private OlxCodeEntityRepository olxCodeEntityRepository;
 
     public OlxAuthorizationCodeTokenProvider(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
@@ -74,10 +82,24 @@ public class OlxAuthorizationCodeTokenProvider extends AbstractCreateRequest {
         map.add("scope", this.scope);
         map.add("client_id", this.clientId);
         map.add("client_secret", this.clientSecret);
-        map.add("code", this.code);
+        map.add("code", olxCodeEntityRepository.getCode());
         map.add("redirect_uri", this.redirect_uri);
         return map;
     }
 
 
+    @Override
+    public void getCode() throws Exception {
+        UriComponentsBuilder builder;
+        builder = UriComponentsBuilder.fromUriString("https://www.olx.pl/oauth/authorize/").queryParam("client_id", this.clientId).queryParam("response_type", "code").queryParam("scope", this.scope).queryParam("redirect_uri", this.redirect_uri);
+        URI requestUri = builder.build(true).toUri();
+        System.setProperty("java.awt.headless", "false");
+        Desktop desktop = Desktop.getDesktop();
+        desktop.browse(requestUri);
+
+        HttpServer server = HttpServer.create(new InetSocketAddress(8001), 0);
+        server.createContext("", new OlxHandler(olxCodeEntityRepository));
+        server.setExecutor(null);
+        server.start();
+    }
 }
