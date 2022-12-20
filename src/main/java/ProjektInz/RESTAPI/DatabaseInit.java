@@ -1,13 +1,10 @@
 package ProjektInz.RESTAPI;
 
-import ProjektInz.RESTAPI.Service.AllegroTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Transient;
 import javax.transaction.Transactional;
 
 @Service
@@ -19,19 +16,23 @@ public class DatabaseInit {
     @Transactional
     @Modifying
     public void initializeDatabase() {
-        String query = createCodeTable() + createAdvertTable();
+        String query = createCodeTable() + createOLXAdvertTable() + createAllegroAdvertTable();
         entityManager.createNativeQuery(query).executeUpdate();
     }
 
-    private String createAdvertTable(){
+    private String createOLXAdvertTable(){
         return "CREATE TABLE IF NOT EXISTS advert(\"id\" Varchar, \"title\" Varchar, " +
                 "\"description\" Varchar, \"url\" Varchar, \"images\" Varchar, \"price\" Int, PRIMARY KEY(\"id\"));\n";
     }
 
     private String createCodeTable(){
         return "CREATE TABLE IF NOT EXISTS code(\"timestamp\" TimeStamp default current_timestamp, \"code\" Varchar, " +
-                "PRIMARY KEY(\"code\"));";
+                "PRIMARY KEY(\"code\"));\n";
     }
 
+    private String createAllegroAdvertTable(){
+        return "CREATE TABLE IF NOT EXISTS advertallegro(\"id\" Varchar, \"title\" Varchar, " +
+                "\"url\" Varchar, \"images\" Varchar, \"price\" Real, PRIMARY KEY(\"id\"));\n";
+    }
 
 }

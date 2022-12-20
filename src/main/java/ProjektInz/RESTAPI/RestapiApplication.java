@@ -26,6 +26,10 @@ public class RestapiApplication {
     private AllegroAuthorizationCodeTokenProvider allegroAuthorizationCodeTokenProvider;
     @Autowired
     private DatabaseSupport databaseSupport;
+    @Autowired
+    private AllegroAdvertService allegroAdvertService;
+    @Autowired
+    private AllegroAdvertsProvider allegroAdvertsProvider;
 
     public static void main(String[] args) {
 
@@ -51,7 +55,9 @@ public class RestapiApplication {
             allegroAuthorizationCodeTokenProvider.getCode();
 //            List<OlxAdvert> olxAdvertList = olxAdvertsProvider.createAdvertObject();
             Thread.sleep(2000);
-            System.out.printf(allegroAuthorizationCodeTokenProvider.getAllegroAuthorizationCodeToken());
+            allegroAuthorizationCodeTokenProvider.getAllegroAuthorizationCodeToken();
+            allegroAdvertService.getAdverts();
+            allegroAdvertsProvider.createAdvertObject();
 
         } catch (Exception e) {
             throw new RuntimeException(e);

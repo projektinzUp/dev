@@ -64,7 +64,7 @@ public class AllegroAuthorizationCodeTokenProvider extends AbstractAllegroReques
         server.start();
     }
 
-    public String getAllegroAuthorizationCodeToken() throws Exception {
+    public void getAllegroAuthorizationCodeToken() throws Exception {
         try {
             HttpEntity<String> entity = createHeaders();
             UriComponentsBuilder builder;
@@ -72,7 +72,7 @@ public class AllegroAuthorizationCodeTokenProvider extends AbstractAllegroReques
             builder = UriComponentsBuilder.fromUriString("https://allegro.pl.allegrosandbox.pl/auth/oauth/token").queryParam("grant_type", "authorization_code").queryParam("code", code).queryParam("redirect_uri", this.redirect_uri);
             URI requestUri = builder.build(true).toUri();
             ResponseEntity<AllegroAuthorizationCodeToken> advert = restTemplate.exchange(requestUri, HttpMethod.POST, entity, AllegroAuthorizationCodeToken.class);
-            return Objects.requireNonNull(advert.getBody()).getAccess_token();
+            AllegroAuthorizationCodeToken.accessToken = Objects.requireNonNull(advert.getBody()).getAccess_token();
         } catch (Exception exception) {
             log.error("Error occured when downloading Allegro access token, message " + exception.getMessage());
             throw new Exception("Error occured when downloading Allegro access token, message " + exception.getMessage());

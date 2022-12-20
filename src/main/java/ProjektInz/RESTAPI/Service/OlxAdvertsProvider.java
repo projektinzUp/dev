@@ -19,7 +19,8 @@ public class OlxAdvertsProvider {
 
     public List<OlxAdvert> createAdvertObject() {
         try {
-            ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>>> response = (ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>>>) olxAdvertService.getAdverts();
+            ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>>> response =
+                    (ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>>>) olxAdvertService.getAdverts();
             for (LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>> iter : response) {
                 Map<String, Object> testMap = new HashMap<>();
                 for (String key : iter.keySet()) {

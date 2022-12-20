@@ -35,7 +35,6 @@ public class OlxAdvert implements Persistable<String> {
     @Column(name="price")
     private int price;
 
-
     public OlxAdvert(Map<String, Object> advert) {
         this.id = advert.get("id").toString();
         this.url = advert.get("url").toString();
