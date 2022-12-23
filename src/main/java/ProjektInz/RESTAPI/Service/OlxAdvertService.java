@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @Slf4j
@@ -72,6 +73,6 @@ public class OlxAdvertService {
     }
 
     public List<OlxAdvert> getByKeyword(String keyword) {
-        return olxAdvertsRepository.findByKeyword(keyword);
+        return olxAdvertsRepository.findByKeyword(keyword.toLowerCase(Locale.ROOT));
     }
 }

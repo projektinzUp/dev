@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface OlxAdvertsRepository extends JpaRepository<OlxAdvert, String> {
 
-    @Query(value = "select * from advert adv where adv.title like %:keyword%", nativeQuery = true)
+    @Query(value = "select * from advert adv where lower(adv.title) like %:keyword%", nativeQuery = true)
     List<OlxAdvert> findByKeyword(@Param("keyword") String keyword);
 
 }
