@@ -1,6 +1,7 @@
 package ProjektInz.RESTAPI.Service;
 
 import ProjektInz.RESTAPI.repository.OlxAdvertsRepository;
+import ProjektInz.RESTAPI.restApi.AllegroAdvert;
 import ProjektInz.RESTAPI.restApi.OlxAdvert;
 import ProjektInz.RESTAPI.restApi.OlxAdvertResponse;
 import ProjektInz.RESTAPI.restApi.OlxAuthorizationCodeToken;
@@ -74,5 +75,21 @@ public class OlxAdvertService {
 
     public List<OlxAdvert> getByKeyword(String keyword) {
         return olxAdvertsRepository.findByKeyword(keyword.toLowerCase(Locale.ROOT));
+    }
+
+    public List<OlxAdvert> sortByTitleDesc() {
+        return olxAdvertsRepository.sortByTitleDesc();
+    }
+
+    public List<OlxAdvert> sortByTitleAsc() {
+        return olxAdvertsRepository.sortByTitleAsc();
+    }
+
+    public List<OlxAdvert> sortByPriceDesc() {
+        return olxAdvertsRepository.sortByPriceDesc();
+    }
+
+    public List<OlxAdvert> sortByPriceAsc() {
+        return olxAdvertsRepository.sortByPriceAsc();
     }
 }

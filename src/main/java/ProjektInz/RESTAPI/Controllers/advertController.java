@@ -28,7 +28,7 @@ public class advertController {
     }
 
 
-    @RequestMapping(path = {"/", "/search"})
+    @RequestMapping(path = {"allAdverts"})
     public String home(OlxAdvert olxAdvert, Model model, String keyword) {
         if (keyword != null) {
             List<OlxAdvert> list = olxAdvertService.getByKeyword(keyword);
@@ -37,6 +37,6 @@ public class advertController {
             List<OlxAdvert> list = olxAdvertService.findAllAdverts();
             model.addAttribute("list", list);
         }
-        return "search";
+        return "all-adverts";
     }
 }

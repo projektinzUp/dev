@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>SEARCH</title>
+</head>
+<body>
+<div th:insert="fragments :: navbar"></div>
+<div class="container mt-3">
+    <h2 align="center">Twoje oferty na OLX</h2>
+    <form th:action="@{/olxAdverts}" align="center" method="get">
+        <input type="text" name="keyword" th:value="${keyword}"  placeholder="Wyszukaj po tytule" size="50" >
+        <button type="submit" class="btn btn-outline-success" >Szukaj</button>
+        <button type="submit" class="btn btn-outline-danger" >Reset</button>
+    </form>
+    <table class="table table-bordered table-sm mt-2">
+        <thead>
+        <tr>
+            <th>
+                <div align="center">
+                    <form th:action="@{/olxSortAdvertsDesc}" method="get">
+                        <button type="submit" class="btn btn-outline-dark" >/\</button>
+                    </form>Tytu?<form th:action="@{/olxSortAdvertsAsc}" method="get">
+                    <button type="submit" class="btn btn-outline-dark" >\/</button>
+                </form>
+                </div>
+            </th>
+            <th>
+                <div align="center">
+                    <form th:action="@{/olxSortAdvertsByPriceDesc}" method="get">
+                        <button type="submit" class="btn btn-outline-dark" >/\</button>
+                    </form>Cena<form th:action="@{/olxSortAdvertsByPriceAsc}" method="get">
+                    <button type="submit" class="btn btn-outline-dark" >\/</button>
+                </form>
+                </div>
+            </th>
+            <th align="center">Zdj?cia</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="l : ${list}" th:field="${l}">
+            <td align="center" th:text="${l.title}"></td>
+            <td align="center" th:text="${l.price}"></td>
+            <td><img align="center" th:src="${l.images}" width="100" height="60"/></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

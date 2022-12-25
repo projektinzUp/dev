@@ -1,42 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>All adverts list</title>
-
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <meta charset="ISO-8859-1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>SEARCH</title>
 </head>
 <body>
+<div th:insert="fragments :: navbar"></div>
+<div class="container mt-5">
+    <h2 align="center">Wyszukaj po tytule</h2>
+    <form th:action="@{/allAdverts}" method="get">
+        <input type="text" name="keyword" th:value="${keyword}"  placeholder="Wyszukaj po tytule" size="50" >
+        <button type="submit" class="btn btn-info" >Search</button>
+        <button type="submit" class="btn btn-info" >Reset</button>
+    </form>
+    <table class="table table-bordered table-sm mt-2">
+        <thead>
+        <tr>
+            <th>Tytu?</th>
+            <th>Opis</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="l : ${list}" th:field="${l}">
+            <td th:text="${l.title}"></td>
+            <td th:text="${l.description}"></td>
 
-<div>
-  <h1 align="center">All adverts list</h1>
-  <a th:href = "@{/}" class="btn btn-primary btn-sm mb-5"> Back! </a>
-
-  <table class="table table-striped table-responsive-md">
-    <thead>
-
-    <tr>
-      <th>Id:</th>
-      <th>Tytuł:</th>
-      <th>Opis:</th>
-      <th>Url:</th>
-      <th>Zdjęcia:</th>
-      <th>Prices:</th>
-    </tr>
-
-    </thead>
-
-    <tbody>
-    <tr th:each="olxAdvert : ${allAdverts}">
-        <td th:text="${olxAdvert.id}"></td>
-        <td th:text="${olxAdvert.title}"></td>
-        <td th:text="${olxAdvert.description}"></td>
-        <td th:text="${olxAdvert.url}"></td>
-        <td><img th:src="${olxAdvert.images}" width="100" height="60"/></td>
-        <td th:text="${olxAdvert.price}"></td>
-    </tr>
-    </tbody>
-  </table>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

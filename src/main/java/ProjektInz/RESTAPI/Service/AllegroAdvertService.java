@@ -1,8 +1,13 @@
 package ProjektInz.RESTAPI.Service;
 
+import ProjektInz.RESTAPI.repository.AllegroAdvertsRepository;
+import ProjektInz.RESTAPI.repository.OlxAdvertsRepository;
+import ProjektInz.RESTAPI.restApi.AllegroAdvert;
 import ProjektInz.RESTAPI.restApi.AllegroAdvertResponse;
 import ProjektInz.RESTAPI.restApi.AllegroAuthorizationCodeToken;
+import ProjektInz.RESTAPI.restApi.OlxAdvert;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -17,11 +22,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @Slf4j
 public class AllegroAdvertService {
     private final RestTemplate restTemplate;
+
+    @Autowired
+    AllegroAdvertsRepository allegroAdvertsRepository;
 
     public AllegroAdvertService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
@@ -54,5 +63,29 @@ public class AllegroAdvertService {
             log.error("Error occured when downloading adverts, message " + exception.getMessage());
             throw new Exception("Error occured when downloading adverts, message " + exception.getMessage());
         }
+    }
+
+    public List<AllegroAdvert> findAllAdverts() {
+        return (List<AllegroAdvert>) allegroAdvertsRepository.findAll();
+    }
+
+    public List<AllegroAdvert> getByKeyword(String keyword) {
+        return allegroAdvertsRepository.findByKeyword(keyword.toLowerCase(Locale.ROOT));
+    }
+
+    public List<AllegroAdvert> sortByTitleDesc() {
+        return allegroAdvertsRepository.sortByTitleDesc();
+    }
+
+    public List<AllegroAdvert> sortByTitleAsc() {
+        return allegroAdvertsRepository.sortByTitleAsc();
+    }
+
+    public List<AllegroAdvert> sortByPriceDesc() {
+        return allegroAdvertsRepository.sortByPriceDesc();
+    }
+
+    public List<AllegroAdvert> sortByPriceAsc() {
+        return allegroAdvertsRepository.sortByPriceAsc();
     }
 }
