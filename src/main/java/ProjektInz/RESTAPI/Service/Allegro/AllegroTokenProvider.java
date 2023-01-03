@@ -1,26 +1,22 @@
-package ProjektInz.RESTAPI.Service;
+package ProjektInz.RESTAPI.Service.Allegro;
 
-import ProjektInz.RESTAPI.restApi.AllegroToken;
+import ProjektInz.RESTAPI.restApi.Allegro.AllegroToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.LaxRedirectStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -32,19 +28,9 @@ public class AllegroTokenProvider {
     private String clientId;
     @Value("${allegro.client_secret}")
     private String clientSecret;
-    private final RestTemplate restTemplate;
-
-    public AllegroTokenProvider(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
-        List<HttpMessageConverter<?>> messageConverterList = new ArrayList<>();
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
-        messageConverterList.add(converter);
-        this.restTemplate.setMessageConverters(messageConverterList);
-        this.restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(StandardCharsets.UTF_8));
-        setAutomaticRedirect(restTemplate);
-    }
-
+    @Autowired
+    @Qualifier("simpleRestTemplate")
+    private RestTemplate restTemplate;
 
     public String getAllegroToken() throws Exception {
         try {

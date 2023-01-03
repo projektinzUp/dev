@@ -1,4 +1,4 @@
-package ProjektInz.RESTAPI.Service;
+package ProjektInz.RESTAPI.Service.Olx;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 public abstract class AbstractCreateRequest {
 
-    protected static void setAutomaticRedirect(RestTemplate restTemplate) {
+    public static void setAutomaticRedirect(RestTemplate restTemplate) {
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
         HttpClient httpClient = HttpClientBuilder.create()
                 .setRedirectStrategy(new LaxRedirectStrategy()).build();

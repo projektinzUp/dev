@@ -1,4 +1,4 @@
-package ProjektInz.RESTAPI.restApi;
+package ProjektInz.RESTAPI.restApi.Olx;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class AllegroToken {
+public class OlxToken {
     private String access_token;
+    private String expires_in;
     private String token_type;
-    private int expires_in;
     private String scope;
-    private boolean allegro_api;
-    private String jti;
+
+    public static String accessToken = "";
 }

@@ -1,7 +1,7 @@
-package ProjektInz.RESTAPI.Service;
+package ProjektInz.RESTAPI.Service.Allegro;
 
 import ProjektInz.RESTAPI.repository.AllegroAdvertsRepository;
-import ProjektInz.RESTAPI.restApi.AllegroAdvert;
+import ProjektInz.RESTAPI.restApi.Allegro.AllegroAdvert;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

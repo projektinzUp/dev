@@ -1,7 +1,7 @@
-package ProjektInz.RESTAPI.Service;
+package ProjektInz.RESTAPI.Service.Olx;
 
 import ProjektInz.RESTAPI.repository.OlxAdvertsRepository;
-import ProjektInz.RESTAPI.restApi.OlxAdvert;
+import ProjektInz.RESTAPI.restApi.Olx.OlxAdvert;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

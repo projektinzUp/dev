@@ -1,53 +1,39 @@
-package ProjektInz.RESTAPI.Service;
+package ProjektInz.RESTAPI.Service.Olx;
 
 import ProjektInz.RESTAPI.repository.OlxAdvertsRepository;
-import ProjektInz.RESTAPI.restApi.AllegroAdvert;
-import ProjektInz.RESTAPI.restApi.OlxAdvert;
-import ProjektInz.RESTAPI.restApi.OlxAdvertResponse;
-import ProjektInz.RESTAPI.restApi.OlxAuthorizationCodeToken;
+import ProjektInz.RESTAPI.restApi.Olx.OlxAdvert;
+import ProjektInz.RESTAPI.restApi.Olx.OlxAdvertResponse;
+import ProjektInz.RESTAPI.restApi.Olx.OlxAuthorizationCodeToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
 @Service
 @Slf4j
 public class OlxAdvertService {
-    private final RestTemplate restTemplate;
+    @Autowired
+    @Qualifier("simpleRestTemplate")
+    private RestTemplate restTemplate;
     @Value("${olx.host}")
     private String olxHost;
 
     @Autowired
     OlxAdvertsRepository olxAdvertsRepository;
 
-    public OlxAdvertService(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
-        List<HttpMessageConverter<?>> messageConverterList = new ArrayList<>();
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
-        messageConverterList.add(converter);
-        this.restTemplate.setMessageConverters(messageConverterList);
-        this.restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(StandardCharsets.UTF_8));
-    }
-
     public HttpEntity<String> createHeaders() {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setBearerAuth(OlxAuthorizationCodeToken.accessToken);
-        httpHeaders.set("Version","Version:2.0");
+        httpHeaders.set("Version", "Version:2.0");
         List<MediaType> mediaTypes = new ArrayList<>();
         mediaTypes.add(MediaType.ALL);
         httpHeaders.setAccept(mediaTypes);

@@ -1,34 +1,28 @@
-package ProjektInz.RESTAPI.Service;
+package ProjektInz.RESTAPI.Service.Olx;
 
-import ProjektInz.RESTAPI.restApi.OlxToken;
+import ProjektInz.RESTAPI.restApi.Olx.OlxToken;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Slf4j
 @Service
-public class OlxAccessTokenProvider extends AbstractCreateRequest{
+public class OlxAccessTokenProvider extends AbstractCreateRequest {
 
-    private final RestTemplate restTemplate;
+    @Autowired
+    @Qualifier("simpleRestTemplate")
+    private RestTemplate restTemplate;
     @Value("${olx.host}")
     private String olxHost;
     @Value("${olx.clientId}")
@@ -39,16 +33,6 @@ public class OlxAccessTokenProvider extends AbstractCreateRequest{
     private String scope;
     @Value("${olx.clientSecret}")
     private String clientSecret;
-
-    public OlxAccessTokenProvider(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
-        List<HttpMessageConverter<?>> messageConverterList = new ArrayList<>();
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
-        messageConverterList.add(converter);
-        this.restTemplate.setMessageConverters(messageConverterList);
-        this.restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(StandardCharsets.UTF_8));
-    }
 
     public String getOlxBearerToken() throws Exception {
         try {

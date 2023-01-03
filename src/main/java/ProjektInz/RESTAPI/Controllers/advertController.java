@@ -1,7 +1,7 @@
 package ProjektInz.RESTAPI.Controllers;
 
-import ProjektInz.RESTAPI.Service.OlxAdvertService;
-import ProjektInz.RESTAPI.restApi.OlxAdvert;
+import ProjektInz.RESTAPI.Service.Olx.OlxAdvertService;
+import ProjektInz.RESTAPI.restApi.Olx.OlxAdvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

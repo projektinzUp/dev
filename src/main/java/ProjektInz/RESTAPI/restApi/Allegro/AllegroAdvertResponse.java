@@ -1,4 +1,4 @@
-package ProjektInz.RESTAPI.restApi;
+package ProjektInz.RESTAPI.restApi.Allegro;
 
 import lombok.Getter;
 import org.springframework.http.ResponseEntity;

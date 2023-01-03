@@ -1,48 +1,35 @@
-package ProjektInz.RESTAPI.Service;
+package ProjektInz.RESTAPI.Service.Allegro;
 
 import ProjektInz.RESTAPI.repository.AllegroAdvertsRepository;
-import ProjektInz.RESTAPI.repository.OlxAdvertsRepository;
-import ProjektInz.RESTAPI.restApi.AllegroAdvert;
-import ProjektInz.RESTAPI.restApi.AllegroAdvertResponse;
-import ProjektInz.RESTAPI.restApi.AllegroAuthorizationCodeToken;
-import ProjektInz.RESTAPI.restApi.OlxAdvert;
+import ProjektInz.RESTAPI.restApi.Allegro.AllegroAdvert;
+import ProjektInz.RESTAPI.restApi.Allegro.AllegroAdvertResponse;
+import ProjektInz.RESTAPI.restApi.Allegro.AllegroAuthorizationCodeToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.*;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
 @Service
 @Slf4j
 public class AllegroAdvertService {
-    private final RestTemplate restTemplate;
+    @Autowired
+    @Qualifier("simpleRestTemplate")
+    private RestTemplate restTemplate;
 
     @Autowired
     AllegroAdvertsRepository allegroAdvertsRepository;
 
-    public AllegroAdvertService(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
-        List<HttpMessageConverter<?>> messageConverterList = new ArrayList<>();
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
-        messageConverterList.add(converter);
-        this.restTemplate.setMessageConverters(messageConverterList);
-        this.restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(StandardCharsets.UTF_8));
-    }
-
-    private HttpEntity<String> createHeaders(){
+    private HttpEntity<String> createHeaders() {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setBearerAuth(AllegroAuthorizationCodeToken.accessToken);
         httpHeaders.set("Accept", "application/vnd.allegro.public.v1+json");

@@ -1,4 +1,4 @@
-package ProjektInz.RESTAPI.restApi;
+package ProjektInz.RESTAPI.restApi.Olx;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

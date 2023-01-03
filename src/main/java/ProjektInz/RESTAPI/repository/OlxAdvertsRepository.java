@@ -1,7 +1,6 @@
 package ProjektInz.RESTAPI.repository;
 
-import ProjektInz.RESTAPI.restApi.AllegroAdvert;
-import ProjektInz.RESTAPI.restApi.OlxAdvert;
+import ProjektInz.RESTAPI.restApi.Olx.OlxAdvert;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

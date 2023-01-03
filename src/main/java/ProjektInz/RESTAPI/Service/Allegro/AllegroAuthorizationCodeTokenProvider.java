@@ -1,32 +1,30 @@
-package ProjektInz.RESTAPI.Service;
+package ProjektInz.RESTAPI.Service.Allegro;
 
 import ProjektInz.RESTAPI.Handlers.AllegroHandler;
+import ProjektInz.RESTAPI.Service.GetCode;
 import ProjektInz.RESTAPI.repository.CodeEntityRepository;
-import ProjektInz.RESTAPI.restApi.AllegroAuthorizationCodeToken;
+import ProjektInz.RESTAPI.restApi.Allegro.AllegroAuthorizationCodeToken;
 import com.sun.net.httpserver.HttpServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
 import java.awt.*;
 import java.net.InetSocketAddress;
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
-import java.util.*;
+import java.util.Objects;
 
 @Slf4j
 @Service
-public class AllegroAuthorizationCodeTokenProvider extends AbstractAllegroRequests implements GetCode{
+public class AllegroAuthorizationCodeTokenProvider implements GetCode {
     @Value("${allegro.client_id}")
     private String client_id;
     @Value("${allegro.client_secret}")
@@ -35,19 +33,9 @@ public class AllegroAuthorizationCodeTokenProvider extends AbstractAllegroReques
     private String redirect_uri;
     @Autowired
     private CodeEntityRepository codeEntityRepository;
-
-    private final RestTemplate restTemplate;
-
-    public AllegroAuthorizationCodeTokenProvider(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
-        List<HttpMessageConverter<?>> messageConverterList = new ArrayList<>();
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
-        messageConverterList.add(converter);
-        this.restTemplate.setMessageConverters(messageConverterList);
-        this.restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(StandardCharsets.UTF_8));
-        AbstractCreateRequest.setAutomaticRedirect(restTemplate);
-    }
+    @Autowired
+    @Qualifier("simpleRestTemplate")
+    private RestTemplate restTemplate;
 
     @Override
     public void getCode() throws Exception {
@@ -79,8 +67,7 @@ public class AllegroAuthorizationCodeTokenProvider extends AbstractAllegroReques
         }
     }
 
-    @Override
-    public HttpEntity<String> createHeaders() {
+    private HttpEntity<String> createHeaders() {
         HttpHeaders httpHeaders = new HttpHeaders();
         String auth = this.client_id + ":" + this.client_secret;
         httpHeaders.setBasicAuth(Base64.getEncoder().encodeToString(auth.getBytes()));
@@ -90,7 +77,6 @@ public class AllegroAuthorizationCodeTokenProvider extends AbstractAllegroReques
         httpHeaders.setAccept(mediaTypes);
         return new HttpEntity<>(httpHeaders);
     }
-
 
 
 }
