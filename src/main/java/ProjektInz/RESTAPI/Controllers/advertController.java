@@ -1,6 +1,8 @@
 package ProjektInz.RESTAPI.Controllers;
 
+import ProjektInz.RESTAPI.Service.Adverts.AdvertService;
 import ProjektInz.RESTAPI.Service.Olx.OlxAdvertService;
+import ProjektInz.RESTAPI.restApi.Allegro.AllegroAdvert;
 import ProjektInz.RESTAPI.restApi.Olx.OlxAdvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,29 +16,51 @@ import java.util.List;
 public class advertController {
 
     @Autowired
-    OlxAdvertService olxAdvertService;
+    AdvertService advertService;
 
     @GetMapping("/")
     public String index(){
         return "index";
     }
 
-    @GetMapping("/allAdverts")
-    public String showAdverts(Model model){
-        model.addAttribute("allAdverts", olxAdvertService.findAllAdverts());
-        return "all-adverts";
-    }
-
-
-    @RequestMapping(path = {"allAdverts"})
-    public String home(OlxAdvert olxAdvert, Model model, String keyword) {
+    @RequestMapping(path = {"/allAdverts"})
+    public String home(AllegroAdvert allegroAdvert, Model model, String keyword) {
         if (keyword != null) {
-            List<OlxAdvert> list = olxAdvertService.getByKeyword(keyword);
+            List<AllegroAdvert> list = advertService.getByKeyword(keyword);
             model.addAttribute("list", list);
         } else {
-            List<OlxAdvert> list = olxAdvertService.findAllAdverts();
+            List<AllegroAdvert> list = advertService.findAllAdverts();
             model.addAttribute("list", list);
         }
         return "all-adverts";
     }
+
+    @RequestMapping(path = {"/allSortAdvertsDesc"})
+    public String allSortAdvertsDesc(AllegroAdvert allegroAdvert, Model model) {
+        List<AllegroAdvert> list = advertService.sortByTitleDesc();
+        model.addAttribute("list", list);
+        return "all-adverts";
+    }
+
+    @RequestMapping(path = {"/allSortAdvertsAsc"})
+    public String allSortAdvertsAsc(AllegroAdvert allegroAdvert, Model model) {
+        List<AllegroAdvert> list = advertService.sortByTitleAsc();
+        model.addAttribute("list", list);
+        return "all-adverts";
+    }
+
+    @RequestMapping(path = {"/allSortAdvertsByPriceDesc"})
+    public String allSortAdvertsByPriceDesc(AllegroAdvert allegroAdvert, Model model) {
+        List<AllegroAdvert> list = advertService.sortByPriceDesc();
+        model.addAttribute("list", list);
+        return "all-adverts";
+    }
+
+    @RequestMapping(path = {"/allSortAdvertsByPriceAsc"})
+    public String allSortAdvertsByPriceAsc(AllegroAdvert allegroAdvert, Model model) {
+        List<AllegroAdvert> list = advertService.sortByPriceAsc();
+        model.addAttribute("list", list);
+        return "all-adverts";
+    }
+
 }

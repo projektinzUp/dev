@@ -16,7 +16,7 @@ public class advertAllegroController {
     AllegroAdvertService allegroAdvertService;
 
     @RequestMapping(path = {"/allegroAdverts"})
-    public String home(OlxAdvert olxAdvert, Model model, String keyword) {
+    public String home(AllegroAdvert allegroAdvert, Model model, String keyword) {
         if (keyword != null) {
             List<AllegroAdvert> list = allegroAdvertService.getByKeyword(keyword);
             model.addAttribute("list", list);
@@ -28,28 +28,28 @@ public class advertAllegroController {
     }
 
     @RequestMapping(path = {"/allegroSortAdvertsDesc"})
-    public String allegroSortAdvertsDesc(OlxAdvert olxAdvert, Model model) {
+    public String allegroSortAdvertsDesc(AllegroAdvert allegroAdvert, Model model) {
         List<AllegroAdvert> list = allegroAdvertService.sortByTitleDesc();
         model.addAttribute("list", list);
         return "allegro-adverts";
     }
 
     @RequestMapping(path = {"/allegroSortAdvertsAsc"})
-    public String allegroSortAdvertsAsc(OlxAdvert olxAdvert, Model model) {
+    public String allegroSortAdvertsAsc(AllegroAdvert allegroAdvert, Model model) {
         List<AllegroAdvert> list = allegroAdvertService.sortByTitleAsc();
         model.addAttribute("list", list);
         return "allegro-adverts";
     }
 
     @RequestMapping(path = {"/allegroSortAdvertsByPriceDesc"})
-    public String allegroSortAdvertsByPriceDesc(OlxAdvert olxAdvert, Model model) {
+    public String allegroSortAdvertsByPriceDesc(AllegroAdvert allegroAdvert, Model model) {
         List<AllegroAdvert> list = allegroAdvertService.sortByPriceDesc();
         model.addAttribute("list", list);
         return "allegro-adverts";
     }
 
     @RequestMapping(path = {"/allegroSortAdvertsByPriceAsc"})
-    public String allegroSortAdvertsByPriceAsc(OlxAdvert olxAdvert, Model model) {
+    public String allegroSortAdvertsByPriceAsc(AllegroAdvert allegroAdvert, Model model) {
         List<AllegroAdvert> list = allegroAdvertService.sortByPriceAsc();
         model.addAttribute("list", list);
         return "allegro-adverts";

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
@@ -10,25 +10,38 @@
 </head>
 <body>
 <div th:insert="fragments :: navbar"></div>
-<div class="container mt-5">
-    <h2 align="center">Wyszukaj po tytule</h2>
-    <form th:action="@{/allAdverts}" method="get">
+<div class="container mt-3">
+    <h2 align="center">Twoje wszystkie oferty</h2>
+    <form th:action="@{/allAdverts}" align="center" method="get">
         <input type="text" name="keyword" th:value="${keyword}"  placeholder="Wyszukaj po tytule" size="50" >
-        <button type="submit" class="btn btn-info" >Search</button>
-        <button type="submit" class="btn btn-info" >Reset</button>
+        <button type="submit" class="btn btn-outline-success" >Szukaj</button>
+        <button type="submit" class="btn btn-outline-danger" >Reset</button>
     </form>
     <table class="table table-bordered table-sm mt-2">
         <thead>
         <tr>
-            <th>Tytu?</th>
-            <th>Opis</th>
+            <th class="text-center align-middle">
+                    <form th:action="@{/allSortAdvertsDesc}" method="get">
+                        <button type="submit" class="btn btn-outline-dark" >/\</button>
+                    </form>Tytuł<form th:action="@{/allSortAdvertsAsc}" method="get">
+                    <button type="submit" class="btn btn-outline-dark" >\/</button>
+                </form>
+            </th>
+            <th width="100px" class="text-center align-middle">
+                    <form th:action="@{/allSortAdvertsByPriceDesc}" method="get">
+                        <button type="submit" class="btn btn-outline-dark" >/\</button>
+                    </form>Cena<form th:action="@{/allSortAdvertsByPriceAsc}" method="get">
+                    <button type="submit" class="btn btn-outline-dark" >\/</button>
+                </form>
+            </th>
+            <th width="100px" class="text-center align-middle">Zdjęcia</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="l : ${list}" th:field="${l}">
-            <td th:text="${l.title}"></td>
-            <td th:text="${l.description}"></td>
-
+            <td align="center" th:text="${l.name}"></td>
+            <td align="center" th:text="${l.price}"></td>
+            <td><img align="center" th:src="${l.images != 'null'} ? ${l.images} : 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Brak_obrazka.svg/1024px-Brak_obrazka.svg.png'" width="100" height="60"/></td>
         </tr>
         </tbody>
     </table>
