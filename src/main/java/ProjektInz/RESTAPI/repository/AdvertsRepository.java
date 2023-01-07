@@ -15,7 +15,7 @@ public interface AdvertsRepository extends JpaRepository<AllegroAdvert, String> 
     @Query(value = allAdvertsQuery, nativeQuery = true)
     List<AllegroAdvert> findAllAdverts();
 
-    @Query(value = allAdvertsQuery + "select id, title, url, images, cast(price as float) as price from advertallegro where lower(title) like %:keyword% UNION select id, title, url, images, cast(price as float) as price from advert where lower(title) like %:keyword%", nativeQuery = true)
+    @Query(value = "select id, title, url, images, cast(price as float) as price from advertallegro where lower(title) like %:keyword% UNION select id, title, url, images, cast(price as float) as price from advert where lower(title) like %:keyword%", nativeQuery = true)
     List<AllegroAdvert> findByKeyword(@Param("keyword") String keyword);
 
     @Query(value = allAdvertsQuery + " ORDER BY title DESC", nativeQuery = true)
