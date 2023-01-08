@@ -39,16 +39,18 @@ public class AllegroAdvertService {
 
     public Object getAdverts() throws Exception {
         try {
+            log.info("Starting to download allegro adverts");
             HttpEntity<String> entity = createHeaders();
             UriComponentsBuilder builder;
             builder = UriComponentsBuilder.fromUriString("https://api.allegro.pl.allegrosandbox.pl/sale/offers");
             URI requestUri = builder.build(true).toUri();
             ResponseEntity<Object> advert = restTemplate.exchange(requestUri, HttpMethod.GET, entity, Object.class);
             AllegroAdvertResponse allegroAdvertResponse = new AllegroAdvertResponse(advert);
+            log.info("Allegro adverts downloaded");
             return allegroAdvertResponse.getOffers(allegroAdvertResponse);
         } catch (Exception exception) {
-            log.error("Error occured when downloading adverts, message " + exception.getMessage());
-            throw new Exception("Error occured when downloading adverts, message " + exception.getMessage());
+            log.error("Error occurred when downloading allegro adverts, message: " + exception.getMessage());
+            throw new Exception("Error occurred when downloading allegro adverts, message: " + exception.getMessage());
         }
     }
 

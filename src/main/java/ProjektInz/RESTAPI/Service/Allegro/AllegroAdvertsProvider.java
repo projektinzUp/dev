@@ -21,6 +21,7 @@ public class AllegroAdvertsProvider {
 
     public void createAdvertObject() {
         try {
+            log.info("Creating allegro advert object");
             ArrayList<LinkedHashMap<String, Object>> body = (ArrayList<LinkedHashMap<String, Object>>) allegroAdvertService.getAdverts();
             for (LinkedHashMap<String, Object> iter : body) {
                 AllegroAdvert allegroAdvert = new AllegroAdvert(iter);
@@ -28,10 +29,9 @@ public class AllegroAdvertsProvider {
             }
 
             advertsRepository.saveAll(advertList);
-
+            log.info("Allegro advert successfully saved into database");
         } catch (Exception e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
+            log.error("Error occurred when creating allegro advert object, message: " + e.getMessage());
         }
     }
 }

@@ -34,15 +34,17 @@ public class AllegroTokenProvider {
 
     public String getAllegroToken() throws Exception {
         try {
+            log.info("Starting to download Allegro access token");
             HttpEntity<String> entity = createHeaders();
             UriComponentsBuilder builder;
             builder = UriComponentsBuilder.fromUriString("https://allegro.pl.allegrosandbox.pl/auth/oauth/token").queryParam("grant_type", this.grantType);
             URI requestUri = builder.build(true).toUri();
             ResponseEntity<AllegroToken> advert = restTemplate.exchange(requestUri, HttpMethod.POST, entity, AllegroToken.class);
+            log.info("Allegro access token downloaded");
             return advert.getBody().getAccess_token();
         } catch (Exception exception) {
-            log.error("Error occured when downloading Allegro access token, message " + exception.getMessage());
-            throw new Exception("Error occured when downloading Allegro access token, message " + exception.getMessage());
+            log.error("Error occurred when downloading Allegro access token, message: " + exception.getMessage());
+            throw new Exception("Error occurred when downloading Allegro access token, message: " + exception.getMessage());
         }
     }
 

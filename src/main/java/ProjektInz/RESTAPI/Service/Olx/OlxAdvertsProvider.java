@@ -17,8 +17,9 @@ public class OlxAdvertsProvider {
     private OlxAdvertsRepository olxAdvertsRepository;
     private List<OlxAdvert> olxAdverts = new ArrayList<>();
 
-    public List<OlxAdvert> createAdvertObject() {
+    public List<OlxAdvert> createAdvertObject() throws Exception {
         try {
+            log.info("Starting to download olx adverts");
             ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>>> response =
                     (ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>>>) olxAdvertService.getAdverts();
             for (LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>> iter : response) {
@@ -34,11 +35,12 @@ public class OlxAdvertsProvider {
                 olxAdverts.add(olxAdvert);
                 olxAdvertsRepository.save(olxAdvert);
             }
+            log.info("Olx adverts successfully saved into database");
             return olxAdverts;
 
         } catch (Exception e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
+            log.error("An error occurred while processing olx adverts, message: " + e.getMessage());
+            throw new Exception("An error occurred while processing olx adverts, message: " + e.getMessage());
         }
     }
 

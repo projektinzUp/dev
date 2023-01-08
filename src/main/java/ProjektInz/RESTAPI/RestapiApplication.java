@@ -10,6 +10,7 @@ import ProjektInz.RESTAPI.Service.Olx.OlxAdvertsProvider;
 import ProjektInz.RESTAPI.Service.Olx.OlxAuthorizationCodeTokenProvider;
 import ProjektInz.RESTAPI.restApi.Olx.OlxAuthorizationCodeToken;
 import ProjektInz.RESTAPI.restApi.Olx.OlxToken;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,6 +19,7 @@ import org.springframework.context.event.EventListener;
 
 
 @SpringBootApplication
+@Slf4j
 public class RestapiApplication {
     @Autowired
     private OlxAccessTokenProvider olxAccessTokenProvider;
@@ -49,6 +51,7 @@ public class RestapiApplication {
     public void applicationStart() {
         try {
             databaseInit.initializeDatabase();
+            log.info("Database initialized");
             databaseSupport.codesToRemove();
             OlxToken.accessToken = olxAccessTokenProvider.getOlxBearerToken();
             OlxAuthorizationCodeToken.accessToken = olxAuthorizationCodeTokenProvider.getOlxAuthenticationToken();
@@ -61,7 +64,7 @@ public class RestapiApplication {
             allegroAdvertsProvider.createAdvertObject();
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("Error occurred when application initialized, message: " + e.getMessage());
         }
     }
 }

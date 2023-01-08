@@ -36,15 +36,17 @@ public class OlxAccessTokenProvider extends AbstractCreateRequest {
 
     public String getOlxBearerToken() throws Exception {
         try {
+            log.info("Starting to download olx access token");
             HttpEntity<String> entity = createRequestEntity();
             UriComponentsBuilder builder;
             builder = UriComponentsBuilder.fromUriString(olxHost + "api/open/oauth/token");
             URI requestUri = builder.build(true).toUri();
             HttpEntity<OlxToken> token = restTemplate.exchange(requestUri, HttpMethod.POST, entity, OlxToken.class);
+            log.info("Olx access token downloaded");
             return Objects.requireNonNull(token.getBody()).getAccess_token();
         } catch (Exception exception) {
-            log.error("Error occured when downloading bearerToken, message " + exception.getMessage());
-            throw new Exception("Error occured when downloading bearerToken, message " + exception.getMessage());
+            log.error("Error occurred when downloading olx access token, message: " + exception.getMessage());
+            throw new Exception("Error occurred when downloading olx access token, message: " + exception.getMessage());
         }
     }
 

@@ -50,8 +50,8 @@ public class OlxAdvertService {
             OlxAdvertResponse olxAdvertResponse = new OlxAdvertResponse(advert);
             return olxAdvertResponse.getValues(olxAdvertResponse);
         } catch (Exception exception) {
-            log.error("Error occured when downloading adverts, message " + exception.getMessage());
-            throw new Exception("Error occured when downloading adverts, message " + exception.getMessage());
+            log.error("Error occurred when downloading adverts, message " + exception.getMessage());
+            throw new Exception("Error occurred when downloading adverts, message " + exception.getMessage());
         }
     }
 

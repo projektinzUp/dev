@@ -23,16 +23,22 @@
             <th class="text-center align-middle">
                     <form th:action="@{/allSortAdvertsDesc}" method="get">
                         <button type="submit" class="btn btn-outline-dark" >/\</button>
-                    </form>Tytuł<form th:action="@{/allSortAdvertsAsc}" method="get">
-                    <button type="submit" class="btn btn-outline-dark" >\/</button>
+                    </form>
+                Tytuł
+                <form th:action="@{/allSortAdvertsAsc}" method="get">
+                    <button type="submit" class="btn btn-outline-dark">\/</button>
                 </form>
             </th>
             <th width="100px" class="text-center align-middle">
-                    <form th:action="@{/allSortAdvertsByPriceDesc}" method="get">
-                        <button type="submit" class="btn btn-outline-dark" >/\</button>
-                    </form>Cena<form th:action="@{/allSortAdvertsByPriceAsc}" method="get">
-                    <button type="submit" class="btn btn-outline-dark" >\/</button>
+                <form th:action="@{/allSortAdvertsByPriceDesc}" method="get">
+                    <button type="submit" class="btn btn-outline-dark">/\</button>
                 </form>
+                Cena
+                <form th:action="@{/allSortAdvertsByPriceAsc}" method="get">
+                    <button type="submit" class="btn btn-outline-dark">\/</button>
+                </form>
+            </th>
+            <th width="100px" class="text-center align-middle">URL</th>
             </th>
             <th width="100px" class="text-center align-middle">Zdjęcia</th>
         </tr>
@@ -41,7 +47,12 @@
         <tr th:each="l : ${list}" th:field="${l}">
             <td align="center" th:text="${l.name}"></td>
             <td align="center" th:text="${l.price}"></td>
-            <td><img align="center" th:src="${l.images != 'null'} ? ${l.images} : 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Brak_obrazka.svg/1024px-Brak_obrazka.svg.png'" width="100" height="60"/></td>
+            <td align="center">
+                <a th:href="@{${l.url}}" th:text="${l.url}"/>
+            </td>
+            <td><img align="center"
+                     th:src="${l.images != 'null'} ? ${l.images} : 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Brak_obrazka.svg/1024px-Brak_obrazka.svg.png'"
+                     width="100" height="60"/></td>
         </tr>
         </tbody>
     </table>

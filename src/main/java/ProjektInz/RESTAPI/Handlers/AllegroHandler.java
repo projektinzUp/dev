@@ -4,12 +4,14 @@ import ProjektInz.RESTAPI.repository.CodeEntityRepository;
 import ProjektInz.RESTAPI.restApi.CodeEntity;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponentsBuilder;
 
 
 @Component
+@Slf4j
 public class AllegroHandler implements HttpHandler  {
 
     private CodeEntityRepository codeEntityRepository;

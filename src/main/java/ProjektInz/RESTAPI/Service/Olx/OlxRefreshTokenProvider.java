@@ -40,8 +40,8 @@ public class OlxRefreshTokenProvider extends AbstractCreateRequest {
             OlxAuthorizationCodeToken.refreshToken = Objects.requireNonNull(token.getBody()).getRefresh_token();
             return Objects.requireNonNull(token.getBody()).getAccess_token();
         } catch (Exception exception) {
-            log.error("Error occured when downloading bearerToken, message " + exception.getMessage());
-            throw new Exception("Error occured when downloading bearerToken, message " + exception.getMessage());
+            log.error("Error occurred when downloading bearerToken, message " + exception.getMessage());
+            throw new Exception("Error occurred when downloading bearerToken, message " + exception.getMessage());
         }
     }
 
