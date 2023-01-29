@@ -20,23 +20,21 @@
   <table class="table table-bordered table-sm mt-2">
     <thead>
     <tr>
-    <th>
+    <th width="100px" class="text-center align-middle">
       <div align="center">
-      <form th:action="@{/allegroSortAdvertsDesc}" method="get">
-        <button type="submit" class="btn btn-outline-dark" >/\</button>
-      </form>Tytuł <form th:action="@{/allegroSortAdvertsAsc}" method="get">
-        <button type="submit" class="btn btn-outline-dark" >\/</button>
-      </form>
+		<form method="get">
+			<input class="btn btn-outline-dark" type="submit" value="/\" th:formaction="@{/allegroSortAdvertsAsc}">
+			Tytuł
+			<input class="btn btn-outline-dark" type="submit" value="\/" th:formaction="@{/allegroSortAdvertsDesc}">
+		</form>
       </div>
     </th>
       <th width="100px" class="text-center align-middle">
-        <form th:action="@{/allegroSortAdvertsByPriceDesc}" method="get">
-          <button type="submit" class="btn btn-outline-dark">/\</button>
-        </form>
-        Cena
-        <form th:action="@{/allegroSortAdvertsByPriceAsc}" method="get">
-          <button type="submit" class="btn btn-outline-dark">\/</button>
-        </form>
+		<form method="get">
+			<input class="btn btn-outline-dark" type="submit" value="/\" th:formaction="@{/allegroSortAdvertsByPriceAsc}">
+			Cena
+			<input class="btn btn-outline-dark" type="submit" value="\/" th:formaction="@{/allegroSortAdvertsByPriceDesc}">
+		</form>
       </th>
       <th width="100px" class="text-center align-middle">URL</th>
       </th>

@@ -20,22 +20,18 @@
     <table class="table table-bordered table-sm mt-2">
         <thead>
         <tr>
-            <th class="text-center align-middle">
-                    <form th:action="@{/allSortAdvertsDesc}" method="get">
-                        <button type="submit" class="btn btn-outline-dark" >/\</button>
-                    </form>
-                Tytuł
-                <form th:action="@{/allSortAdvertsAsc}" method="get">
-                    <button type="submit" class="btn btn-outline-dark">\/</button>
+            <th width="100px" class="text-center align-middle">
+				<form method="get">
+					<input class="btn btn-outline-dark" type="submit" value="/\" th:formaction="@{/allSortAdvertsAsc}">
+					Tytuł
+					<input class="btn btn-outline-dark" type="submit" value="\/" th:formaction="@{/allSortAdvertsDesc}">
                 </form>
             </th>
             <th width="100px" class="text-center align-middle">
-                <form th:action="@{/allSortAdvertsByPriceDesc}" method="get">
-                    <button type="submit" class="btn btn-outline-dark">/\</button>
-                </form>
-                Cena
-                <form th:action="@{/allSortAdvertsByPriceAsc}" method="get">
-                    <button type="submit" class="btn btn-outline-dark">\/</button>
+				<form method="get">
+					<input class="btn btn-outline-dark" type="submit" value="/\" th:formaction="@{/allSortAdvertsByPriceAsc}">
+					Cena
+					<input class="btn btn-outline-dark" type="submit" value="\/" th:formaction="@{/allSortAdvertsByPriceDesc}">
                 </form>
             </th>
             <th width="100px" class="text-center align-middle">URL</th>

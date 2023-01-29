@@ -21,20 +21,18 @@
         <thead>
         <tr>
             <th width="100px" class="text-center align-middle">
-                    <form th:action="@{/olxSortAdvertsDesc}" method="get">
-                        <button type="submit" class="btn btn-outline-dark" >/\</button>
-                    </form>Tytuł<form th:action="@{/olxSortAdvertsAsc}" method="get">
-                <button type="submit" class="btn btn-outline-dark">\/</button>
-            </form>
+				<form method="get">
+					<input class="btn btn-outline-dark" type="submit" value="/\" th:formaction="@{/olxSortAdvertsAsc}">
+					Tytuł
+					<input class="btn btn-outline-dark" type="submit" value="\/" th:formaction="@{/olxSortAdvertsDesc}">
+				</form>
             </th>
             <th width="100px" class="text-center align-middle">
-                <form th:action="@{/olxSortAdvertsByPriceDesc}" method="get">
-                    <button type="submit" class="btn btn-outline-dark">/\</button>
-                </form>
-                Cena
-                <form th:action="@{/olxSortAdvertsByPriceAsc}" method="get">
-                    <button type="submit" class="btn btn-outline-dark">\/</button>
-                </form>
+				<form method="get">
+					<input class="btn btn-outline-dark" type="submit" value="/\" th:formaction="@{/olxSortAdvertsByPriceAsc}">
+					Cena
+					<input class="btn btn-outline-dark" type="submit" value="\/" th:formaction="@{/olxSortAdvertsByPriceDesc}">
+				</form>
             </th>
             <th width="100px" class="text-center align-middle">URL</th>
             </th>
